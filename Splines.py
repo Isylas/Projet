@@ -1,5 +1,7 @@
 #splines cubiques
 import numpy as np
+import matplotlib.pyplot as plt
+from sympy import *
 
 def splines_cubiques(x, y):
     n=len(x)
@@ -73,10 +75,25 @@ def dérivée_seconde_spline(x,y):
     return dérivée_seconde_spline
 
 def equilibre(x,y):
-    
+    return
 
 x=[1,3,5,8, 10]
 y=[2,3,9,10, 11]
 print (résolution(x,y))
 
 print(dérivée_seconde_spline(x,y))
+
+def affichage(X,Y,res):
+    x=symbols('x')
+    
+    P= plot(res[0][0]+res[1][0]*x+res[2][0]*x**2+res[3][0]*x**3,(x,X[0],X[1]), show=False,line_color='b')
+    for i in range(1, np.shape(res)[0]//4, 1):
+        print(res[(i*4)][0]+res[i*4+1][0]*x+res[i*4+2][0]*x**2+res[i*4+3][0]*x**3)
+        p=plot(res[(i*4)][0]+res[i*4+1][0]*x+res[i*4+2][0]*x**2+res[i*4+3][0]*x**3,(x,X[i],X[i+1]), show=False,line_color='b')
+        P.extend(p)
+    P.show()
+    plt.scatter(X,Y)
+    plt.show()
+
+res=résolution (x,y)
+affichage(x,y,res)
