@@ -40,6 +40,14 @@ def splines_cubiques(x, y):
     return matFinale, matRes
 
 
+def résolution (x,y):  #renvoie les coeff des ploynomes sous forme de matrice colonne (d1,c1,..., an-1)
+    matFinale = splines_cubiques(x,y)[0]
+    matRes = splines_cubiques(x, y)[1]
+    matFinale_inv = np.linalg.inv(matFinale)
+    matCoeff = np.dot(matFinale_inv, matRes)
+    return matCoeff 
+        
+        
 x=[1,3,5,8, 10]
 y=[2,3,9,10, 11]
-print(splines_cubiques(x, y))
+print (résolution(x,y))
