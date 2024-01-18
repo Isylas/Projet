@@ -47,7 +47,36 @@ def résolution (x,y):  #renvoie les coeff des ploynomes sous forme de matrice c
     matCoeff = np.dot(matFinale_inv, matRes)
     return matCoeff 
         
+def dérivée_polynome (poly): # dérive un polynome de degré 3 (4 coeff)
+    a=poly[3]
+    b=poly[2]
+    c=poly[1]
+    return [c, 2*b, 3*a]
         
+def dérivée_spline(x,y):  #renvoie la dérivée des splines sous la forme de matrice 3*(n-1)
+    n=len(x)
+    dérivée_spline=[]
+    matCoeff = résolution(x,y)
+    for i in range (n-1):
+        poly = [matCoeff[4*i][0],matCoeff[4*i+1][0],matCoeff[4*i+2][0],matCoeff[4*i+3][0]]
+        dérivée_spline.append(dérivée_polynome (poly))    
+    return dérivée_spline
+
+def dérivée_seconde_spline(x,y):
+    n=len(x)
+    dérivée_seconde_spline=[]
+    dérivée_première=dérivée_spline(x,y)
+    for i in range(n-1):
+        a=dérivée_première[i][2]
+        b=dérivée_première[i][1]
+        dérivée_seconde_spline.append([b,2*a])
+    return dérivée_seconde_spline
+
+def equilibre(x,y):
+    
+
 x=[1,3,5,8, 10]
 y=[2,3,9,10, 11]
 print (résolution(x,y))
+
+print(dérivée_seconde_spline(x,y))
