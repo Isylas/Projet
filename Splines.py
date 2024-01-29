@@ -90,9 +90,11 @@ def equilibre(x,y):
     n=len(x)
     res = None
     dérivée_seconde= dérivée_seconde_spline(x,y)
+    print(dérivée_seconde)
     for i in range (n-1):
-        a=dérivée_seconde[i+1]
-        b=dérivée_seconde[i]
+        a=dérivée_seconde[4*i+1][0]
+        b=dérivée_seconde[4*i][0]
+        print(b)
         if -b/a >= x[i] and -b/a <= x[i+1]:
             res = -b/a
     return res
@@ -171,12 +173,4 @@ def affichage(X,Y,res):
     plt.show()
 
 
-
-res=résolution(x,y)
-res=dérivée_spline(x,y)
-print(dérivée_spline(x,y))
-affichage(x,y,res)
-res=dérivée_seconde_spline(x,y)
-print(dérivée_seconde_spline(x,y))
-affichage(x,y,res)
-
+print(equilibre(x,y))
